@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       :root {
@@ -20,18 +20,34 @@
       }
       html,
       body {
-        width: 1920px;
-        height: 1080px;
+        width: 100%;
+        height: 100%;
+        height: 100dvh;
         overflow: hidden;
         background: var(--bg);
+        position: fixed;
+        inset: 0;
       }
       body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-family: "Inter", sans-serif;
         color: var(--fg);
       }
       code,
       .mono {
         font-family: "JetBrains Mono", monospace;
+      }
+
+      /* ---------- composition stage: fixed video-canvas size, independent containing
+         block so .scene positioning never depends on the web-host scaler's transform ---------- */
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        flex: 0 0 auto;
       }
 
       /* ---------- scene scaffold ---------- */
@@ -749,24 +765,31 @@
     </script>
     <script>
       // ---- viewport scaler (web-host chrome, outside the composition contract) ----
+      // #root's own size/position are fixed by CSS (1920x1080, position:relative) so this
+      // transform only ever affects visual scale, never the containing block for .scene.
       (function () {
         var stage = document.getElementById("root");
         document.body.style.background = "#000";
-        document.body.style.display = "flex";
-        document.body.style.alignItems = "center";
-        document.body.style.justifyContent = "center";
-        document.body.style.width = "100vw";
-        document.body.style.height = "100vh";
-        document.body.style.overflow = "hidden";
         stage.style.transformOrigin = "center center";
-        stage.style.flex = "0 0 auto";
+
+        function viewportSize() {
+          if (window.visualViewport) {
+            return { w: window.visualViewport.width, h: window.visualViewport.height };
+          }
+          return { w: window.innerWidth, h: window.innerHeight };
+        }
 
         function rescale() {
-          var factor = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+          var size = viewportSize();
+          var factor = Math.min(size.w / 1920, size.h / 1080);
           stage.style.transform = "scale(" + factor + ")";
         }
         rescale();
         window.addEventListener("resize", rescale);
+        window.addEventListener("orientationchange", rescale);
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener("resize", rescale);
+        }
       })();
     </script>
   </body>
