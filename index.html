@@ -155,6 +155,47 @@
         border: 2px solid rgba(47, 125, 255, 0.18);
         pointer-events: none;
       }
+      .reg-mark {
+        position: absolute;
+        z-index: 3;
+        width: 22px;
+        height: 22px;
+        pointer-events: none;
+      }
+      .reg-mark::before,
+      .reg-mark::after {
+        content: "";
+        position: absolute;
+        background: rgba(154, 163, 181, 0.5);
+      }
+      .reg-mark::before {
+        left: 10px;
+        top: 0;
+        width: 2px;
+        height: 22px;
+      }
+      .reg-mark::after {
+        top: 10px;
+        left: 0;
+        width: 22px;
+        height: 2px;
+      }
+      .reg-mark.tl {
+        top: 56px;
+        left: 56px;
+      }
+      .reg-mark.tr {
+        top: 56px;
+        right: 56px;
+      }
+      .reg-mark.bl {
+        bottom: 56px;
+        left: 56px;
+      }
+      .reg-mark.br {
+        bottom: 56px;
+        right: 56px;
+      }
 
       /* ---------- hero ---------- */
       #scene-hero .bg-glow {
@@ -389,6 +430,10 @@
         <div class="scene" id="scene-hero">
           <div class="bg-grid" data-layout-ignore></div>
           <div class="bg-glow" data-layout-ignore></div>
+          <div class="reg-mark tl" id="s1-reg-tl" data-layout-ignore></div>
+          <div class="reg-mark tr" id="s1-reg-tr" data-layout-ignore></div>
+          <div class="reg-mark bl" id="s1-reg-bl" data-layout-ignore></div>
+          <div class="reg-mark br" id="s1-reg-br" data-layout-ignore></div>
           <div class="scene-content">
             <div class="eyebrow" id="s1-eyebrow">CARDS FOR VS CODE</div>
             <svg
@@ -518,6 +563,10 @@
         <div class="scene" id="scene-close">
           <div class="bg-glow" id="s5-glow" data-layout-ignore></div>
           <div class="ghost-ring" id="s5-ring" data-layout-ignore></div>
+          <div class="reg-mark tl" id="s5-reg-tl" data-layout-ignore></div>
+          <div class="reg-mark tr" id="s5-reg-tr" data-layout-ignore></div>
+          <div class="reg-mark bl" id="s5-reg-bl" data-layout-ignore></div>
+          <div class="reg-mark br" id="s5-reg-br" data-layout-ignore></div>
           <div class="scene-content">
             <div class="close-lines">
               <h2 id="s5-line1">Clean up your <span class="accent-word">worktrees</span>.</h2>
@@ -538,6 +587,9 @@
       const tl = gsap.timeline({ paused: true });
 
       /* ============ SCENE 1: HERO (0 - 8.5s) ============ */
+      tl.fromTo("#scene-hero .reg-mark", { opacity: 0, scale: 0.6 },
+        { opacity: 1, scale: 1, duration: 0.3, ease: "power1.out", stagger: 0.04 }, 0.1);
+
       tl.fromTo("#s1-eyebrow", { opacity: 0, y: -14 },
         { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.3);
 
@@ -657,6 +709,9 @@
         { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 36.5);
 
       /* ============ SCENE 5: CLOSE / CTA (37.0 - 46.0s, only scene allowed to exit) ============ */
+      tl.fromTo("#scene-close .reg-mark", { opacity: 0, scale: 0.6 },
+        { opacity: 1, scale: 1, duration: 0.3, ease: "power1.out", stagger: 0.04 }, 37.1);
+
       tl.fromTo("#s5-line1", { y: 40, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.6, ease: "expo.out" }, 37.2);
       tl.fromTo("#s5-line2", { x: -40, opacity: 0 },
@@ -680,7 +735,7 @@
         { rotation: 12, duration: 8.5, ease: "sine.inOut" }, 37.0);
 
       /* Final fade to black — only exit animation in the whole composition */
-      tl.to("#scene-close .close-lines, #s5-rule, #s5-cta, #s5-glow, #s5-ring", { opacity: 0, duration: 1.0, ease: "power2.in" }, 44.6);
+      tl.to("#scene-close .close-lines, #s5-rule, #s5-cta, #s5-glow, #s5-ring, #scene-close .reg-mark", { opacity: 0, duration: 1.0, ease: "power2.in" }, 44.6);
       tl.to("#fade-overlay", { opacity: 1, duration: 1.2, ease: "power2.in" }, 44.6);
 
       window.__timelines["main"] = tl;
