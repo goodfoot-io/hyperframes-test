@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>git-span — launch film</title>
+    <meta name="description" content="A rule that lives only in someone's head is not a rule. Declare the coupling once, and your agent is told." />
+    <meta property="og:title" content="git-span — launch film" />
+    <meta property="og:description" content="A rule that lives only in someone's head is not a rule. Declare the coupling once, and your agent is told." />
+    <meta property="og:type" content="video.other" />
+    <style>
+      :root {
+        --bg: #07090c;
+        --panel: #10151b;
+        --line: #232b36;
+        --ink: #e8eef4;
+        --ink-2: #9aa6b4;
+        --ink-3: #5c6875;
+        --link: #5aa9ff;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: ui-monospace, "SFMono-Regular", "IBM Plex Mono", Menlo, monospace;
+        -webkit-font-smoothing: antialiased;
+      }
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 48px 24px 96px;
+      }
+      h1 {
+        font-size: clamp(28px, 5vw, 44px);
+        letter-spacing: -0.03em;
+        margin: 0 0 8px;
+        font-weight: 700;
+      }
+      h1 .dim { color: var(--ink-3); font-weight: 400; }
+      .tagline {
+        color: var(--ink-2);
+        font-size: clamp(15px, 2.2vw, 19px);
+        line-height: 1.5;
+        margin: 0 0 32px;
+        max-width: 62ch;
+      }
+      .stage {
+        background: #000;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        overflow: hidden;
+        line-height: 0;
+      }
+      video {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+      }
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 28px;
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--ink-3);
+        font-size: 14px;
+      }
+      .links {
+        margin-top: 28px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 28px;
+        font-size: 15px;
+      }
+      a { color: var(--link); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      footer {
+        margin-top: 56px;
+        color: var(--ink-3);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>git-span <span class="dim">— launch film</span></h1>
+      <p class="tagline">
+        A rule that lives only in someone's head is not a rule. Declare the coupling
+        once, and your agent is told — while it edits, and again before it commits.
+      </p>
+
+      <div class="stage">
+        <video controls playsinline preload="metadata" poster="poster.jpg">
+          <source src="git-span-launch.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+          <a href="git-span-launch.mp4">Download the film (MP4)</a>.
+        </video>
+      </div>
+
+      <div class="meta">
+        <span>1920×1080 · 30 fps</span>
+        <span>1:53</span>
+        <span>MP4 / H.264</span>
+      </div>
+
+      <div class="links">
+        <a href="git-span-launch.mp4">Download MP4</a>
+        <a href="https://github.com/goodfoot-io/git-span">github.com/goodfoot-io/git-span</a>
+      </div>
+
+      <footer>
+        Built with HyperFrames — the composition is HTML, rendered to video.
+      </footer>
+    </main>
+  </body>
+</html>
